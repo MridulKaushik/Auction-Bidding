@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+<h1>All Auctions</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for auction in auctions %}
+    <tr>
+      <td>{{ auction.item_name }}</td>
+      <td>{{ auction.start_time }}</td>
+      <td>{{ auction.end_time }}</td>
+      <td>₨. {{ auction.price }}</td>
+      <td>
+     
+        {% if not auction.is_Auction_Completed %}          
+          <a href="{% url 'auction:results' auction.pk %}" class="btn btn-warning">Results - {{auction.is_Auction_Completed}}</a>
+        {% else %}
+        <a
+          href="{% url 'auction:updateAuction' auction.pk %}"
+          class="btn btn-primary">Edit</a>
+        <a
+          href="{% url 'auction:placeBid' auction.pk %}"
+          class="btn btn-secondary">Bid</a>
+        {% endif %}
+          <a
+          href="{% url 'auction:deleteAuction' auction.pk %}"
+          class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5">No auctions available.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'auction:createAuction' %}" class="btn btn-success"
+  >Create Auction</a
+>
+{% endblock %}

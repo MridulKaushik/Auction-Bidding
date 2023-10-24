@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+  <h1>Delete Auction</h1>
+  <p>Are you sure you want to delete the auction "{{ object.title }}"?</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-secondary">Confirm</button>
+  </form>
+{% endblock %}
